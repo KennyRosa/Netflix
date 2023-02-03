@@ -1,0 +1,13 @@
+.form-field-netflix{
+    background-color: rgba(0,0,0,.75);
+    border-radius: 4px;
+    display: flex;
+    border: 0;
+    flex-direction: column;}
+
+label:after{
+    content: "" !important}
+
+.sign-in-btn{
+    background: #e50914;
+    border: 0;}
