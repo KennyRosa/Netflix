@@ -5,6 +5,8 @@ import "./form-field.css";
 import "./netflix.css";
 import { Card, Col, Button, Row } from "react-bootstrap";
 import logo from "../assets/images/netflix/logo.png";
+import netflixService from "./services/netflixService";
+import { useNavigate } from "react-router-dom";
 
 const validationLogin = Yup.object().shape({
   email: Yup.string()
@@ -22,7 +24,21 @@ function SignInForm() {
   const userLoginData = {
     email: "",
     password: "",
-    tenantId: "U03SPNRSUPJ",
+  };
+
+  const navigate = useNavigate();
+
+  const handleSubmit = (values) => {
+    netflixService.userLogIn(values).then(onLoginSuccess).catch(onLoginFailure);
+  };
+
+  const onLoginSuccess = (response) => {
+    console.log(response, "Login successful");
+    navigate("/netflix/movies");
+  };
+
+  const onLoginFailure = (error) => {
+    console.log(error, "Login Failed");
   };
 
   return (
@@ -38,6 +54,7 @@ function SignInForm() {
                 enableReinitialize={true}
                 initialValues={userLoginData}
                 validationSchema={validationLogin}
+                onSubmit={handleSubmit}
               >
                 <Form className="form-field-netflix">
                   <div className="mb-3">
@@ -78,3 +95,4 @@ function SignInForm() {
 }
 
 export default SignInForm;
+
